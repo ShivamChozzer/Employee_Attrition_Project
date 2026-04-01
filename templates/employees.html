@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Records</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Employee Records</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Age</th>
+            <th>Business Travel</th>
+            <th>Department</th>
+            <th>Distance</th>
+            <th>Education</th>
+            <th>Gender</th>
+            <th>Job Role</th>
+            <th>Marital Status</th>
+            <th>Income</th>
+            <th>Years</th>
+            <th>Attrition Prediction</th>
+        </tr>
+        {% for emp in employees %}
+        <tr>
+            <td>{{ emp.id or '-' }}</td>
+            <td>{{ emp.Age or '-' }}</td>
+            <td>{{ emp.BusinessTravel or '-' }}</td>
+            <td>{{ emp.Department or '-' }}</td>
+            <td>{{ emp.DistanceFromHome or '-' }}</td>
+            <td>{{ emp.Education or '-' }}</td>
+            <td>{{ emp.Gender or '-' }}</td>
+            <td>{{ emp.JobRole or '-' }}</td>
+            <td>{{ emp.MaritalStatus or '-' }}</td>
+            <td>{{ emp.MonthlyIncome or '-' }}</td>
+            <td>{{ emp.YearsAtCompany or '-' }}</td>
+            <td>{{ "Yes" if emp.prediction == 1 else "No" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    
+    
+    
+    <br>
+    <a href="/">Back to Form</a>
+</body>
+</html>

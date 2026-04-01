@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Attrition Prediction System</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Page Title -->
+    <h2>Employee Attrition Prediction System</h2>
+
+    <!-- Employee Attrition Prediction Form -->
+    <form action="/predict" method="post" id="attritionForm">
+
+        <label for="age">Age:</label>
+        <input type="number" name="Age" id="age" required><br>
+
+        <label for="businessTravel">Business Travel:</label>
+        <select name="BusinessTravel" id="businessTravel">
+            <option value="Travel_Rarely">Rarely</option>
+            <option value="Travel_Frequently">Frequently</option>
+            <option value="Non-Travel">Non-Travel</option>
+        </select><br>
+
+        <label for="department">Department:</label>
+        <select name="Department" id="department">
+            <option value="Sales">Sales</option>
+            <option value="Research & Development">R&D</option>
+            <option value="Human Resources">HR</option>
+        </select><br>
+
+        <label for="distance">Distance from Home (in km):</label>
+        <input type="number" name="DistanceFromHome" id="distance" required><br>
+
+        <label for="education">Education Level:</label>
+        <select name="Education" id="education" required>
+            <option value="1">Below College</option>
+            <option value="2">College</option>
+            <option value="3">Bachelor's</option>
+            <option value="4">Master's</option>
+            <option value="5">Doctorate</option>
+        </select><br>
+
+        <label for="gender">Gender:</label>
+        <select name="Gender" id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br>
+
+        <label for="jobRole">Job Role:</label>
+        <select name="JobRole" id="jobRole">
+            <option value="Manager">Manager</option>
+            <option value="Developer">Developer</option>
+            <option value="Sales Executive">Sales Executive</option>
+        </select><br>
+
+        <label for="maritalStatus">Marital Status:</label>
+        <select name="MaritalStatus" id="maritalStatus">
+            <option value="Single">Single</option>
+            <option value="Married">Married</option>
+            <option value="Divorced">Divorced</option>
+        </select><br>
+
+        <label for="monthlyIncome">Monthly Income:</label>
+        <input type="number" name="MonthlyIncome" id="monthlyIncome" required><br>
+
+        <label for="yearsAtCompany">Years At Company:</label>
+        <input type="number" name="YearsAtCompany" id="yearsAtCompany" required><br>
+
+        <!-- Submit Button -->
+        <button type="submit" id="predictBtn">Predict</button>
+    </form>
+
+    <!-- Prediction display area -->
+    <div id="predictionResult" style="display: none;"></div>
+
+    {% if prediction_text %}
+        <h3 class="prediction-text">{{ prediction_text }}</h3>
+    {% endif %}
+    
+    <br>
+    <a href="/employees">View All Employees</a>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
