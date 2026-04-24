@@ -3,6 +3,12 @@ import pymysql
 import numpy as np
 from flask_cors import CORS
 import joblib
+import os
+
+try:
+    from dotenv import load_dotenv
+except Exception:
+    load_dotenv = None
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -10,12 +16,15 @@ CORS(app)
 
 # MySQL Database Connection
 def get_db_connection():
+    if load_dotenv is not None:
+        load_dotenv()
+
     try:
         db = pymysql.connect(
-            host="127.0.0.1",
-            user="root",
-            password="Apple@2005",  # Change to your actual password
-            database="employee_attrition",
+            host=os.getenv("DB_HOST", "127.0.0.1"),
+            user=os.getenv("DB_USER", "root"),
+            password=os.getenv("DB_PASSWORD", ""),
+            database=os.getenv("DB_NAME", "employee_attrition"),
             cursorclass=pymysql.cursors.DictCursor
         )
         return db
@@ -38,6 +47,7 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
+    db = None
     try:
         db = get_db_connection()
         if not db:
@@ -94,7 +104,7 @@ def predict():
                 sql = """
                     INSERT INTO employees 
                     (Age, BusinessTravel, Department, DistanceFromHome, Education, 
-                    Gender, JobRole, MaritalStatus, MonthlyIncome, YearsAtCompany, Prediction)
+                    Gender, JobRole, MaritalStatus, MonthlyIncome, YearsAtCompany, prediction)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """
                 cursor.execute(sql, (
@@ -121,6 +131,7 @@ def predict():
             
 @app.route('/employees')
 def get_employees():
+    db = None
     try:
         db = get_db_connection()
         if db is None:
@@ -143,4 +154,5 @@ def get_employees():
             db.close()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.getenv("PORT", "5000"))
+    app.run(host="0.0.0.0", port=port, debug=os.getenv("FLASK_DEBUG", "0") == "1")

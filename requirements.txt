@@ -1,0 +1,9 @@
+Flask
+flask-cors
+PyMySQL
+numpy
+joblib
+scikit-learn
+python-dotenv
+gunicorn
+
