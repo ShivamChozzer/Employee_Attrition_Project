@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Attrition Prediction System</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="container">
+      <h2>Employee Attrition Prediction System</h2>
+
+      <p class="subtitle">
+        This repository contains a Flask + MySQL app that serves a prediction form and stores results.
+        GitHub Pages can only host static files, so this page is a static landing page for the project.
+      </p>
+
+      <section class="card">
+        <h3>Run locally (recommended)</h3>
+        <ol>
+          <li>Set up MySQL and create the schema from <code>database_setup.sql</code>.</li>
+          <li>Create env vars for DB credentials (see <code>.env.example</code>).</li>
+          <li>Install Python deps and start the Flask server: <code>python app.py</code>.</li>
+          <li>Open <code>http://127.0.0.1:5000</code>.</li>
+        </ol>
+      </section>
+
+      <section class="card">
+        <h3>What’s on GitHub Pages?</h3>
+        <p>
+          This landing page (no backend). To host the full app publicly, deploy the Flask server
+          somewhere like Render/Railway/Fly.io and point the frontend to that API.
+        </p>
+        <p class="muted">
+          Tip: you can still browse the source code in the repo, including <code>app.py</code>,
+          <code>templates/</code>, and <code>static/</code>.
+        </p>
+      </section>
+
+      <footer class="footer">
+        <span class="muted">© Employee Attrition Project</span>
+      </footer>
+    </main>
+  </body>
+</html>
