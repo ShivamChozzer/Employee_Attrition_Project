@@ -88,12 +88,12 @@ async function main() {
       const pred = predictDecisionTree(model, x); // 0 or 1
       const isAttrition = pred === 1;
 
-      result.className = "result";
+      result.className = isAttrition ? "result is-bad" : "result is-ok";
       result.innerHTML = isAttrition
         ? `Prediction: <span class="bad">Attrition likely</span> (class = 1)`
         : `Prediction: <span class="ok">No attrition likely</span> (class = 0)`;
     } catch (err) {
-      result.className = "result";
+      result.className = "result is-error";
       result.innerHTML = `Error: <span class="bad">${String(err.message || err)}</span>`;
     } finally {
       predictBtn.disabled = false;

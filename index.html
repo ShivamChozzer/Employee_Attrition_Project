@@ -8,111 +8,140 @@
   </head>
   <body>
     <main class="container">
-      <header class="header">
-        <div>
+      <header class="hero">
+        <div class="hero-top">
+          <div class="badge-row">
+            <span class="badge badge-purple">Decision Tree</span>
+            <span class="badge badge-green">Instant result</span>
+            <span class="badge badge-blue">Demo UI</span>
+          </div>
           <h2>Employee Attrition Predictor</h2>
-          <p class="subtitle">Enter details and get an instant prediction.</p>
+          <p class="subtitle">Enter details to estimate attrition risk.</p>
         </div>
+        <div class="hero-art" aria-hidden="true"></div>
       </header>
 
-      <section class="card">
-        <h3>Enter employee details</h3>
-
-        <form id="attritionForm" class="form">
-          <div class="grid">
-            <label>
-              <span>Age</span>
-              <input type="number" name="Age" min="18" max="70" required />
-            </label>
-
-            <label>
-              <span>Business Travel</span>
-              <select name="BusinessTravel" required>
-                <option value="Travel_Rarely">Travel_Rarely</option>
-                <option value="Travel_Frequently">Travel_Frequently</option>
-                <option value="Non-Travel">Non-Travel</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Department</span>
-              <select name="Department" required>
-                <option value="Sales">Sales</option>
-                <option value="Research &amp; Development">Research &amp; Development</option>
-                <option value="Human Resources">Human Resources</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Distance From Home (km)</span>
-              <input type="number" name="DistanceFromHome" min="0" max="60" required />
-            </label>
-
-            <label>
-              <span>Education (1-5)</span>
-              <select name="Education" required>
-                <option value="1">1 - Below College</option>
-                <option value="2">2 - College</option>
-                <option value="3">3 - Bachelor</option>
-                <option value="4">4 - Master</option>
-                <option value="5">5 - Doctorate</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Gender</span>
-              <select name="Gender" required>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </label>
-
-            <label class="span-2">
-              <span>Job Role</span>
-              <select name="JobRole" required>
-                <option value="Developer">Developer</option>
-                <option value="Healthcare Representative">Healthcare Representative</option>
-                <option value="Human Resources">Human Resources</option>
-                <option value="Laboratory Technician">Laboratory Technician</option>
-                <option value="Manager">Manager</option>
-                <option value="Manufacturing Director">Manufacturing Director</option>
-                <option value="Research Director">Research Director</option>
-                <option value="Research Scientist">Research Scientist</option>
-                <option value="Sales Executive">Sales Executive</option>
-                <option value="Sales Representative">Sales Representative</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Marital Status</span>
-              <select name="MaritalStatus" required>
-                <option value="Single">Single</option>
-                <option value="Married">Married</option>
-                <option value="Divorced">Divorced</option>
-              </select>
-            </label>
-
-            <label>
-              <span>Monthly Income</span>
-              <input type="number" name="MonthlyIncome" min="0" required />
-            </label>
-
-            <label>
-              <span>Years At Company</span>
-              <input type="number" name="YearsAtCompany" min="0" max="50" required />
-            </label>
+      <section class="layout">
+        <section class="card panel">
+          <div class="panel-head">
+            <h3>Employee details</h3>
+            <span class="hint">All fields required</span>
           </div>
 
-          <div class="actions">
-            <button type="submit" id="predictBtn">Predict</button>
-            <button type="button" id="resetBtn" class="secondary">Reset</button>
-          </div>
-        </form>
-      </section>
+          <form id="attritionForm" class="form">
+            <div class="grid">
+              <label>
+                <span>Age</span>
+                <input type="number" name="Age" min="18" max="70" required />
+              </label>
 
-      <section class="card" aria-live="polite">
-        <h3>Result</h3>
-        <div id="result" class="result muted">Fill the form and click Predict.</div>
+              <label>
+                <span>Business Travel</span>
+                <select name="BusinessTravel" required>
+                  <option value="Travel_Rarely">Travel_Rarely</option>
+                  <option value="Travel_Frequently">Travel_Frequently</option>
+                  <option value="Non-Travel">Non-Travel</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Department</span>
+                <select name="Department" required>
+                  <option value="Sales">Sales</option>
+                  <option value="Research &amp; Development">Research &amp; Development</option>
+                  <option value="Human Resources">Human Resources</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Distance From Home (km)</span>
+                <input type="number" name="DistanceFromHome" min="0" max="60" required />
+              </label>
+
+              <label>
+                <span>Education (1-5)</span>
+                <select name="Education" required>
+                  <option value="1">1 - Below College</option>
+                  <option value="2">2 - College</option>
+                  <option value="3">3 - Bachelor</option>
+                  <option value="4">4 - Master</option>
+                  <option value="5">5 - Doctorate</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Gender</span>
+                <select name="Gender" required>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </label>
+
+              <label class="span-2">
+                <span>Job Role</span>
+                <select name="JobRole" required>
+                  <option value="Developer">Developer</option>
+                  <option value="Healthcare Representative">Healthcare Representative</option>
+                  <option value="Human Resources">Human Resources</option>
+                  <option value="Laboratory Technician">Laboratory Technician</option>
+                  <option value="Manager">Manager</option>
+                  <option value="Manufacturing Director">Manufacturing Director</option>
+                  <option value="Research Director">Research Director</option>
+                  <option value="Research Scientist">Research Scientist</option>
+                  <option value="Sales Executive">Sales Executive</option>
+                  <option value="Sales Representative">Sales Representative</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Marital Status</span>
+                <select name="MaritalStatus" required>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Divorced">Divorced</option>
+                </select>
+              </label>
+
+              <label>
+                <span>Monthly Income</span>
+                <input type="number" name="MonthlyIncome" min="0" required />
+              </label>
+
+              <label>
+                <span>Years At Company</span>
+                <input type="number" name="YearsAtCompany" min="0" max="50" required />
+              </label>
+            </div>
+
+            <div class="actions">
+              <button type="submit" id="predictBtn">Predict</button>
+              <button type="button" id="resetBtn" class="secondary">Reset</button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="card panel panel-sticky" aria-live="polite">
+          <div class="panel-head">
+            <h3>Result</h3>
+            <span class="hint">Updates instantly</span>
+          </div>
+          <div id="result" class="result muted">Fill the form and click Predict.</div>
+
+          <div class="mini-cards">
+            <div class="mini mini-purple">
+              <div class="mini-title">Model</div>
+              <div class="mini-value">Decision Tree</div>
+            </div>
+            <div class="mini mini-blue">
+              <div class="mini-title">Classes</div>
+              <div class="mini-value">0 / 1</div>
+            </div>
+            <div class="mini mini-green">
+              <div class="mini-title">Speed</div>
+              <div class="mini-value">&lt; 1s</div>
+            </div>
+          </div>
+        </aside>
       </section>
 
       <footer class="footer">
