@@ -19,6 +19,11 @@ def get_db_connection():
     if load_dotenv is not None:
         load_dotenv()
 
+    # Allow "no-DB" deployments (simplest hosting).
+    # If DB_PASSWORD is not set, we treat DB as disabled and skip persistence.
+    if not os.getenv("DB_PASSWORD"):
+        return None
+
     try:
         db = pymysql.connect(
             host=os.getenv("DB_HOST", "127.0.0.1"),
@@ -49,10 +54,6 @@ def home():
 def predict():
     db = None
     try:
-        db = get_db_connection()
-        if not db:
-            return jsonify({"error": "Database connection failed"}), 500
-
         if model is None:
             return jsonify({"error": "Model is not loaded"}), 500
 
@@ -98,24 +99,26 @@ def predict():
         else:
             return jsonify({"error": "Model does not support prediction"}), 500
 
-        # Insert prediction into database
-        try:
-            with db.cursor() as cursor:
-                sql = """
-                    INSERT INTO employees 
-                    (Age, BusinessTravel, Department, DistanceFromHome, Education, 
-                    Gender, JobRole, MaritalStatus, MonthlyIncome, YearsAtCompany, prediction)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """
-                cursor.execute(sql, (
-                    raw_values["Age"], raw_values["BusinessTravel"], raw_values["Department"],
-                    raw_values["DistanceFromHome"], raw_values["Education"], raw_values["Gender"],
-                    raw_values["JobRole"], raw_values["MaritalStatus"], raw_values["MonthlyIncome"],
-                    raw_values["YearsAtCompany"], int(prediction)
-                ))
-                db.commit()
-        except pymysql.MySQLError as e:
-            return jsonify({"error": f"Database error: {str(e)}"}), 500
+        # Insert prediction into database (optional)
+        db = get_db_connection()
+        if db is not None and os.getenv("STORE_PREDICTIONS", "1") == "1":
+            try:
+                with db.cursor() as cursor:
+                    sql = """
+                        INSERT INTO employees 
+                        (Age, BusinessTravel, Department, DistanceFromHome, Education, 
+                        Gender, JobRole, MaritalStatus, MonthlyIncome, YearsAtCompany, prediction)
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    """
+                    cursor.execute(sql, (
+                        raw_values["Age"], raw_values["BusinessTravel"], raw_values["Department"],
+                        raw_values["DistanceFromHome"], raw_values["Education"], raw_values["Gender"],
+                        raw_values["JobRole"], raw_values["MaritalStatus"], raw_values["MonthlyIncome"],
+                        raw_values["YearsAtCompany"], int(prediction)
+                    ))
+                    db.commit()
+            except pymysql.MySQLError as e:
+                return jsonify({"error": f"Database error: {str(e)}"}), 500
 
         return jsonify({
             "prediction": int(prediction),
@@ -135,7 +138,11 @@ def get_employees():
     try:
         db = get_db_connection()
         if db is None:
-            return jsonify({"error": "Database connection failed"}), 500
+            return render_template(
+                "employees.html",
+                employees=[],
+                warning="Database is not configured on this deployment, so no employees are stored."
+            )
 
         with db.cursor() as cursor:
             query = "SELECT * FROM employees"
